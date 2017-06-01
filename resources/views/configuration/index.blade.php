@@ -16,6 +16,21 @@
     .nav-pills li a{
     	color: #01BC8C;
     }
+    .colorPickSelector {
+	  	border-radius: 5px;
+	  	width: 36px;
+	  	height: 36px;
+	  	cursor: pointer;
+		-webkit-transition: all linear .2s;
+		-moz-transition: all linear .2s;
+	    -ms-transition: all linear .2s;
+		-o-transition: all linear .2s;
+		transition: all linear .2s;
+	}
+	#colorPick{
+		width: 240px !important;
+	}
+	.colorPickSelector:hover { transform: scale(1.1);
 </style>
     <link href="{{ asset('public/josh/assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}"  rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/josh/assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
@@ -29,7 +44,9 @@
         <link href="{{ asset('public/josh/assets/vendors/iCheck/css/line/line.css') }}" rel="stylesheet" />
         <link href="{{ asset('public/josh/assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}" rel="stylesheet" />
         <link href="{{ asset('public/josh/assets/vendors/switchery/css/switchery.css') }}" rel="stylesheet" />
-        <link href="{{ asset('public/josh/assets/css/pages/formelements.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/assets/css/bootstrap-colorselector.css') }}" rel="stylesheet" />
+
+           <link href="{{ asset('public/josh/assets/css/pages/formelements.css') }}" rel="stylesheet" />
         <!--End of Dropdown-->
     <link href="{{ asset('public/josh/assets/vendors/daterangepicker/css/daterangepicker.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/josh/assets/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
@@ -1013,6 +1030,7 @@
     <script language="javascript" type="text/javascript" src="{{ asset('public/josh/assets/vendors/bootstrap-maxlength/js/bootstrap-maxlength.js') }}"></script>
     <script language="javascript" type="text/javascript" src="{{ asset('public/josh/assets/vendors/card/lib/js/jquery.card.js') }}"></script>
     <script language="javascript" type="text/javascript" src="{{ asset('public/josh/assets/js/pages/custom_elements.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('public/assets/js/bootstrap-colorselector.js') }}"></script>
     <!--End of Drop DOwn -->
     <script src="{{ asset('public/josh/assets/vendors/moment/js/moment.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/josh/assets/vendors/daterangepicker/js/daterangepicker.js') }}" type="text/javascript"></script>
@@ -1021,4 +1039,15 @@
 <script src="{{ asset('public/josh/assets/vendors/clockface/js/clockface.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/josh/assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/josh/assets/js/pages/datepicker.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+	// $(".colorPickSelector").colorPick({
+	// 	'initialColor' : '#27ae60',
+	// 	'onColorSelected': function() {
+	// 		$('.colorSet').val(this.color);
+	// 		console.log("The user has selected the color: " + this.color)
+	// 		this.element.css({'backgroundColor': this.color, 'color': this.color});
+	// 	}
+	// });
+	$('#colorselector').colorselector();
+</script>
 @stop

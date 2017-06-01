@@ -7,9 +7,12 @@
 		{!! Form::model($leave_type,['method' => 'PATCH','route' => ['leave_type.update',$leave_type->id] ,'class' => 'leave-type-form']) !!}
 			@include('leave_type._form', ['buttonText' => 'Update'])
 		{!! Form::close() !!}
+		
 	</div>
 	<script>
+
 	$(function() {
-  	 Validate.init();
+  	 //Validate.init();
+  	 $('#colorselector').colorselector();
     });
 	</script>

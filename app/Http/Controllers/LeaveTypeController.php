@@ -21,7 +21,6 @@ Class LeaveTypeController extends Controller{
 	}
 
 	public function store(LeaveTypeRequest $request, LeaveType $leave_type){	
-
 		$leave_type->create($request->all());
 
 		return redirect('/configuration#leave')->withSuccess(config('constants.ADDED'));				

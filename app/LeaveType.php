@@ -5,7 +5,8 @@ use Eloquent;
 class LeaveType extends Eloquent {
 
 	protected $fillable = [
-							'leave_name'
+							'leave_name',
+							'color'
 						];
 	protected $primaryKey = 'id';
 	protected $table = 'leave_types';
