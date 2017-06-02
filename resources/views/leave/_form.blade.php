@@ -16,7 +16,7 @@
 			  </div>
 			  <div class="form-group">
 			    {!! Form::label('to_date',trans('messages.To Date'),[])!!}
-				{!! Form::input('date','to_date',isset($leave->to_date) ? $leave->to_date : '',['class'=>'form-control datepicker-input','placeholder'=>'Enter To Date'])!!}
+				{!! Form::input('text','to_date',isset($leave->to_date) ? $leave->to_date : '',['class'=>'form-control datepicker-input','placeholder'=>'Enter To Date','id'=>'rangepicker4','readonly' => 'true'])!!}
 			  </div>
 			  <div class="form-group">
 			    {!! Form::label('leave_description',trans('messages.Description'),[])!!}

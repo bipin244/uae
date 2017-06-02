@@ -1040,14 +1040,6 @@
 <script src="{{ asset('public/josh/assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/josh/assets/js/pages/datepicker.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
-	// $(".colorPickSelector").colorPick({
-	// 	'initialColor' : '#27ae60',
-	// 	'onColorSelected': function() {
-	// 		$('.colorSet').val(this.color);
-	// 		console.log("The user has selected the color: " + this.color)
-	// 		this.element.css({'backgroundColor': this.color, 'color': this.color});
-	// 	}
-	// });
 	$('#colorselector').colorselector();
 </script>
 @stop

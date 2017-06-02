@@ -201,15 +201,17 @@ class DashboardController extends Controller
             $name = $employee->first_name." ".$employee->last_name;
             $leave_type = $leaves->LeaveType;
             $leave_type_name = $leave_type->leave_name;
+            $color = $leave_type->color;
             
             {
-                $start = $leaves->from_date;
+                $start = $leaves->from_date . " 00:00:00";
+                $end = $leaves->to_date . " 23:59:59";
 
                 $title = 'Leave: '. $name .' on '.$leave_type_name;
 
-                $color = '#67C5DF';
+               // $color = '#67C5DF';
 
-                $events[] = array('title' => $title, 'start' => $start, 'backgroundColor' => $color);   
+                $events[] = array('title' => $title, 'start' => $start,'end'=>$end, 'backgroundColor' => $color);   
             }
         }
         
