@@ -25,8 +25,7 @@ class LeaveStatusRequest extends Request
     {
         return [
             'id' => 'required',
-            'leave_status' => 'required|in:pending,approved,rejected',
-            'leave_comment' => 'required'
+            'leave_status' => 'required|in:pending,approved,rejected'
         ];
     }
 }

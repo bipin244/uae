@@ -426,7 +426,7 @@ class EmployeeController extends Controller
 		$employee->payment_mode = $request->input('payment_mode');//by Dev@4489
 		$employee->iban_number = $request->input('iban_number');//by Dev@4489
 		$employee->emp_type = $request->input('emp_type');//by Dev@4489
-
+        $employee->total_leave = $request->input('total_leave');
 
 
         if(Entrust::hasRole('admin')){

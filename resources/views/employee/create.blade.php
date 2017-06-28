@@ -190,6 +190,16 @@
 								{!! Form::input('password','password_confirmation','',['class'=>'form-control','placeholder'=>'Enter Confirm Password'])!!}
 
 							</div>
+							</div>
+							<div class="form-group">
+
+						    {!! Form::label('total_leave','Total Leave',['class' => 'col-sm-2 control-label'])!!}
+
+						    <div class="col-sm-10">
+
+								{!! Form::input('number','total_leave','0',['min'=>0,'class'=>'form-control','placeholder'=>'Enter Total Leave'])!!}
+
+							</div>
 
 						  </div>
 

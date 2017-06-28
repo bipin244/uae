@@ -327,16 +327,22 @@
                 <div class="panel panel-success  panel-border" style="">
                     <div class="panel-heading border-light">
                         <h4 class="panel-title">
-                            <i class="livicon" data-name="plane-up" data-size="18" data-color="black" data-hc="black"
+                            <i class="livicon" data-name="plane-up" data-size="18" data-color="white" data-hc="white"
                                data-l="true"></i>
                             My Leave
                         </h4>
                     </div>
                     
-                    <div class="  " id="">
-                        <div class="panel-body panel-info" id="slim3" >
-                        <a class="btn btn-suceess">Make a New Leave Request</a>
-                        </div>
+                    <div class="panel-body panel-info" id="slim3" style="text-align:center;">
+                        <div style="margin: -21px 0 -6px 0;">
+                            <h3><i class="fa fa-plane" aria-hidden="true"></i> {!! $leaveObj['total'] !!} Day's </h3>
+                        </div>  
+                        <p>Holiday Available</p>
+                        <hr style="margin-bottom:5px !important; margin-top:5px !important; " />
+                        <p>{!! $leaveObj['requested'] !!} days requested {!! $leaveObj['booked'] !!} days booked</p>
+                        <hr style="margin-bottom:5px !important; margin-top:5px !important; " />
+                        <p><a class="btn" href="{!! URL::to('leave') !!}">Manage Leave >> </a> Or <a class="btn">View Calendar >> </a></p>
+                        <a class="btn btn-success" href="{!! URL::to('leave/create') !!}">Make a New Leave Request >> </a>
                     </div>
                 </div>
                 <div class="panel panel-primary  panel-border" style="">

@@ -147,16 +147,25 @@
 							</div>
 
 						  </div>
-                          <div class="form-group{{ ((isset($employee->emp_type) && $employee->emp_type) || Input::old('emptype')==1)? '' : ' hide' }}" id="divemptype">
+							<div class="form-group{{ ((isset($employee->emp_type) && $employee->emp_type) || Input::old('emptype')==1)? '' : ' hide' }}" id="divemptype">
 
 						    {!! Form::label('emp_type',trans('messages.No.of Months'),['class' => 'col-sm-2 control-label'])!!}
 
 						    <div class="col-sm-10">
 
-								{!! Form::input('text','emp_type',isset($employee->emp_type) ? $employee->emp_type : '',['class'=>'form-control','placeholder'=>'Enter no.of months'])!!}
+									{!! Form::input('text','emp_type',isset($employee->emp_type) ? $employee->emp_type : '',['class'=>'form-control','placeholder'=>'Enter no.of months'])!!}
+
+								</div>
+							</div>
+							<div class="form-group">
+
+						    {!! Form::label('total_leave','Total Leave',['class' => 'col-sm-2 control-label'])!!}
+
+						    <div class="col-sm-10">
+
+								{!! Form::input('number','total_leave',isset($employee->total_leave) ? $employee->total_leave : '0',['min'=>0,'class'=>'form-control','placeholder'=>'Enter Total Leave'])!!}
 
 							</div>
-
 						  </div>
 
 						  <div class="col-sm-offset-2 col-sm-10">

@@ -107,6 +107,7 @@ class AuthController extends Controller
 		$user->iban_number = $request->input('iban_number');//by Dev@4489
 		$user->emp_type = $request->input('emp_type');//by Dev@4489
 		$user->alias_id = $request->input('alias_id');//by Dev@4489
+		$user->total_leave = $request->input('total_leave');//by Dev@4489
         $user->save();
         $profile = new Profile;
         $profile->user()->associate($user);

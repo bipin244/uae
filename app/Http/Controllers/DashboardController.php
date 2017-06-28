@@ -38,10 +38,7 @@ class DashboardController extends Controller
 
 
    public function index(){
-
-
-
- $clock = Clock::where('user_id','=',Auth::user()->id)
+    $clock = Clock::where('user_id','=',Auth::user()->id)
 
             ->where('date','=',date('Y-m-d'))
 
@@ -243,7 +240,24 @@ class DashboardController extends Controller
 
         }*/
         //dd($events);
-
+        //For leave count start
+        $leaveObj['booked'] = 0;
+        $leaveObj['requested'] = 0;
+        $allLeave = Leave::where('user_id',Auth::user()->id)
+            ->select('leave_status', DB::raw('count(*) as total'))
+            ->groupBy('leave_status')
+            ->get();
+        foreach($allLeave as $key=>$value){
+            if($value['leave_status'] == "approved"){
+                $leaveObj['booked'] = $value['total'];
+            }else if($value['leave_status'] == "pending"){
+                $leaveObj['requested'] = $value['total'];
+            }
+        }
+        // echo "<pre>";
+        // print_r(Auth::user()->id);exit;
+        $leaveObj['total'] = Auth::user()->total_leave - $leaveObj['booked'] - $leaveObj['requested'];
+        //For leave count end
 
         $tree = array();
 
@@ -275,7 +289,7 @@ class DashboardController extends Controller
 
             'activities','employee','compose_users','graph_data','tasks','notices',
 
-            'birthdays','holidays','users','events','tree','child_staff_count'
+            'birthdays','holidays','users','events','tree','child_staff_count','leaveObj'
 
             ));
 
