@@ -342,7 +342,7 @@
                         <p>{!! $leaveObj['requested'] !!} days requested {!! $leaveObj['booked'] !!} days booked</p>
                         <hr style="margin-bottom:5px !important; margin-top:5px !important; " />
                         <p><a class="btn" href="{!! URL::to('leave') !!}">Manage Leave >> </a> Or <a class="btn">View Calendar >> </a></p>
-                        <a class="btn btn-success" href="{!! URL::to('leave/create') !!}">Make a New Leave Request >> </a>
+                        <a class="btn btn-success makeNewLeave">Make a New Leave Request >> </a>
                     </div>
                 </div>
                 <div class="panel panel-primary  panel-border" style="">
@@ -557,6 +557,15 @@
                 }
             });
         @endif
+        // URL::to('leave/create')
+        $(document).on('click','.makeNewLeave',function(e){
+            var availableLeave = {!! $leaveObj['total'] !!};
+            if(availableLeave > 0){
+                window.location.href = "{!! URL::to('leave/create') !!}"
+            }else{
+                alert("No more leave available");
+            }
+        });
         var s1 =  {!! ($graph_data) !!};//[["Jan", 5],["Feb", 8],["Mar", 6],["Apr", 9],["May", 6],["Jun", 8],["Jul", 6],["Aug", 5],["Sep", 8],["Oct", 6],["Nov", 9],["Dec", 6]];
         //var s2 = [["Jan", 70],["Feb", 100],["Mar", 80],["Apr", 100],["May", 80],["Jun", 90],["Jul", 80]];
         //var s3 = [["Jan", 32],["Feb", 41],["Mar", 36],["Apr", 39],["May", 30],["Jun", 44],["Jul", 26]];
