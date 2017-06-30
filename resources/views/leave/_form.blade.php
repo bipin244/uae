@@ -1,11 +1,14 @@
-
+				<?php $leave_type = "";?>
+				@if(Session::has('leave_type'))
+						<?php $leave_type = Session::get('leave_type'); ?>
+				@endif
 			  <div class="form-group">
 			    {!! Form::label('user_id',trans('messages.Staff'),['class' => 'control-label'])!!}
 			    {!! Form::select('user_id', [null=>'Please select'] + $users, isset($leave->user_id) ? $leave->user_id : Auth::user()->id,['class'=>'form-control select2','id'=>'select21','placeholder'=>'Select User'])!!}
 			  </div>
 			  <div class="form-group">
 			    {!! Form::label('leave_type_id',trans('messages.Leave Type'),['class' => 'control-label'])!!}
-			    {!! Form::select('leave_type_id', [''=>''] + $leave_types, isset($leave->leave_type_id) ? $leave->leave_type_id : '',['class'=>'form-control select2me','id'=>'select22','placeholder'=>'Select Leave Type'])!!}
+			    {!! Form::select('leave_type_id', [''=>''] + $leave_types, isset($leave->leave_type_id) ? $leave->leave_type_id : $leave_type,['class'=>'form-control select2me','id'=>'select22','placeholder'=>'Select Leave Type'])!!}
 			  	@if(Entrust::hasRole('admin'))
 			  	<p class="help-block">{!! trans('messages.To add new leave type') !!} <a href="/configuration#leave">{!! trans('messages.Click here') !!}</a>
 			  	@endif

@@ -254,10 +254,47 @@ class DashboardController extends Controller
                 $leaveObj['requested'] = $value['total'];
             }
         }
-        // echo "<pre>";
-        // print_r(Auth::user()->id);exit;
         $leaveObj['total'] = Auth::user()->total_leave - $leaveObj['booked'] - $leaveObj['requested'];
         //For leave count end
+        //For Sick count start
+        $sickLeave['total'] = 0;
+        $sickLeave['lastYear'] = 0;
+        $sickLeave['extention'] = "Perfect";
+        $sickLeave['icon'] = "fa-thumbs-up";
+        $allLeave = Leave::where('user_id',Auth::user()->id)
+            ->where('leave_type_id','2')
+            ->select('leave_status', DB::raw('count(*) as total'))
+            ->groupBy('leave_status')
+            ->get();
+        foreach($allLeave as $key=>$value){
+            if($value['leave_status'] == "approved"){
+                $sickLeave['total'] = $value['total'];
+                if($value['total'] >= 1 && $value['total'] < 5){
+                    $sickLeave['extention'] = "Good";
+                    $sickLeave['icon'] = "fa-thumbs-up";
+                }else if($value['total'] >= 5 && $value['total'] < 10){
+                    $sickLeave['extention'] = "Average";
+                    $sickLeave['icon'] = "fa-hand-o-right";
+                }else if($value['total'] >= 10){
+                    $sickLeave['extention'] = "High Rate of sick leave";
+                    $sickLeave['icon'] = "fa-thumbs-down";
+                }
+            }
+            // else if($value['leave_status'] == "pending"){
+            //     $leaveObj['requested'] = $value['total'];
+            // }
+        }
+        $forLastYear = Leave::where('user_id',Auth::user()->id)
+            ->where('leave_type_id','2')
+            ->where('leave_status','approved')
+            ->whereRaw('from_date > DATE_SUB(now(), INTERVAL 12 MONTH)')
+            ->select(DB::raw('count(*) as total'))
+            ->get();
+        $sickLeave['lastYear'] = $forLastYear[0]['total'];
+        if($sickLeave['lastYear'] == 0){
+            $sickLeave['lastYear'] = "No";
+        }
+        //For Sick count end
 
         $tree = array();
 
@@ -289,10 +326,13 @@ class DashboardController extends Controller
 
             'activities','employee','compose_users','graph_data','tasks','notices',
 
-            'birthdays','holidays','users','events','tree','child_staff_count','leaveObj'
+            'birthdays','holidays','users','events','tree','child_staff_count','leaveObj','sickLeave'
 
             ));
 
+   }
+   public function reportSick(){
+       return redirect('leave/create')->with('leave_type', '2');
    }
    public function josh(){
 

@@ -19,7 +19,7 @@
     @stop
 	@section('content')
 	<section class="content-header">
-		
+        
 		<div class="tab-pane animated fadeInRight" id="sms">
 
 						    <div class="panel panel-success">

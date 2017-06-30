@@ -280,8 +280,160 @@
                 </div>
             </div>
         </div>
-      
-        <div class="col-md-12 col-sm-12">
+         <div class="col-md-12 col-sm-12">
+            <div class="col-md-4 col-lg-4 col-sm-12">
+                <div class="panel panel-warning  panel-border" style="">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <i class="livicon" data-name="hammer" data-size="18" data-color="black" data-hc="black"
+                               data-l="true"></i>
+                            Recent Activity
+                        </h4>
+                    </div>
+                    
+                    <div class="  " id="">
+                        <div class="panel-body panel-info " style="overflow-y: scroll; height:250px;" >
+                                   <ul class="">
+
+                        @foreach($activities as $activity)
+
+                          <li class="media">
+
+                            <a class="pull-{!! App\Classes\Helper::activityShow() !!}" href="#">
+
+                            {!! \App\Classes\Helper::getAvatar2($activity->user_id) !!}
+
+                            </a>
+
+                            <div class=" alert-message media-body {!! App\Classes\Helper::activityColorShow() !!}">
+
+                              <strong>@if(Auth::user()->id == $activity->user_id) Me @else {!! $activity->employee_name !!} @endif</strong><br />
+
+                              {!! $activity->text !!}
+
+                              <p class="time">{!! App\Classes\Helper::showDateTime($activity->created_at) !!}</p>
+
+                            </div>
+
+                          </li>
+
+                        @endforeach
+
+                        </ul>
+                                </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary  panel-border" style="">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <i class="livicon" data-name="mail" data-size="18" data-color="gold" data-hc="white"
+                               data-l="true"></i>
+                            Training
+                        </h4>
+                    </div>
+                    
+                    <div class="  " id="">
+                        <div class="panel-body panel-info" id="mythickness" >
+                            <center>
+                                <h3 style="margin-top:0px;"><i class="fa fa-graduation-cap icon" data-name="plane-up" data-size="30" data-color="black" data-hc="black" data-l="true"></i>0 requests </h3>
+                                Awaiting Approval 
+                            </center><br>
+                            <hr style="padding:0px;margin:0px;">
+                            <center><h4>125 Courses Completed this Year.</h4></center>
+                            <hr style="padding:0px;margin:5px;">
+                            <center><button type="submit" class="btn btn-primary">Request a Training &gt;&gt;</button></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-sm-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading border-light" >
+                        <h4 class="panel-title">
+                            <i class="livicon" data-name="mail" data-size="18" data-color="white" data-hc="white"
+                               data-l="true"></i>
+                            Quick Message
+                        </h4>
+                    </div>
+                    <div class="panel-body no-padding" style="height:533px">
+                    {!! Form::open(['route' => 'message.store','role' => 'form', 'class'=>'compose-form']) !!}
+                        <div class="compose row">
+                            <label class="col-md-2">To:</label>
+                            <div class="col-md-10">
+                            {!! Form::select('to_user_id', [null=>''] + $compose_users, '',['class'=>'form-control col-md-9 col-xs-9 select2','id'=>'select22','placeholder'=>''])!!}
+                            </div>
+                            <div class="clear"><br/></div>
+                            <label class="col-md-2 hidden-xs" style="padding: 0">Subject:</label>
+                            <div class="col-md-10">
+                            {!! Form::input('text','subject','',['class'=>'form-control col-md-9 col-xs-9','placeholder'=>'Message subject'])!!}
+                            </div>
+                            <div class="clear"></div>
+                            <div class='col-md-12' >
+                              
+
+                                {!! Form::textarea('content','',['class' => 'form-control summernote-small','style'=>'height:220px;' ,'id'=>'summernote', 'rows'=>'2','placeholder' => 'Enter Description'])!!}<br/>
+                            </div>
+                            
+                            
+                            <div class="pull-right">
+                                
+                                <button type="submit" class="btn btn-success">{!! trans('messages.Send') !!}</button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-sm-12 col-md-4 col-sm-12" style="">
+                
+                <div class="panel panel-success  panel-border" style="">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <i class="livicon" data-name="plane-up" data-size="18" data-color="black" data-hc="black"
+                               data-l="true"></i>
+                            My Leave
+                        </h4>
+                    </div>
+                    <div>
+                        <div class="panel-body panel-info" id="myleave" >
+                            <center>
+                                <h3 style="margin-top:0px;"><i class="livicon" data-name="plane-up" data-size="18" data-color="black" data-hc="black"
+                               data-l="true"></i> {!! $leaveObj['total'] !!} Day's</h3> Holiday Available
+                            </center><br/>
+                            <hr style="padding:0px;margin:0px;">
+                            <center><h4>{!! $leaveObj['requested'] !!} days requested {!! $leaveObj['booked'] !!} days booked</h4></center>
+                            <hr style="padding:0px;margin:5px;">
+                            <center><a class="btn" href="{!! URL::to('leave') !!}"> Manage Leave >></a> Or <a class="btn" href="#">View Calendar >></a></center><br/>
+                            <center><button class="btn btn-success makeNewLeave">Make a New Leave Request >></button></center>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-danger  panel-border" style="">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <i class="livicon" data-name="thumbs-up" data-size="18" data-color="black" data-hc="black"
+                               data-l="true"></i> 
+                            My Sickness
+                        </h4>
+                    </div>
+                    
+                    <div class="  " id="">
+                        <div class="panel-body panel-info" id="mythickness" >
+                        <center><h3 style="margin-top:0px;"><i class="fa {!! $sickLeave['icon']!!}" aria-hidden="true"></i> {!! $sickLeave['total']!!} {!! $sickLeave['extention']!!}</h3> Attendance</center><br/>
+                        <hr style="padding:0px;margin:0px;">
+                    <center><h4>{!! $sickLeave['lastYear']!!} sickness in the last 12 months.</h4>  </center>
+                    <hr style="padding:0px;margin:5px;">
+                    <center><a class="btn" href="{!! URL::to('leave') !!}"> View My Sick Leave >></a></center><br/>
+                            <center><a href="{!! URL::to('reportSick') !!}" class="btn btn-danger">Report a New Sickness >></a></center>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+        <!--<div class="col-md-12 col-sm-12">
             <div class="col-md-5 col-lg-5 col-sm-12">
                 <div class="panel panel-default  panel-border" style="">
                     <div class="panel-heading border-light">
@@ -413,8 +565,7 @@
                     </div>
                 </div>
             </div>
-             
-        </div>
+        </div>-->
            
             <div class="col-lg-12 col-sm-12 col-md-12" style="">
             <!-- Tracking charts strats here-->

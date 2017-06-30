@@ -132,7 +132,7 @@ get('/carts',function(){
 	Route::model('leave','\App\Leave');
 	resource('leave', 'LeaveController'); 
 	post('leaveUpdateStatus', ['as' => 'leave.updateStatus', 'uses' => 'LeaveController@updateStatus']);
-	
+	get('reportSick','DashboardController@reportSick');
 	Route::model('holiday','\App\Holiday');
 	resource('holiday', 'HolidayController');
 	get('holiday/{id}/Delete','HolidayController@destroy');
