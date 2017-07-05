@@ -202,6 +202,17 @@
 							</div>
 
 						  </div>
+							<div class="form-group">
+
+						    {!! Form::label('paid_sick_leave','Paid Sick Leave',['class' => 'col-sm-2 control-label'])!!}
+
+						    <div class="col-sm-10">
+
+								{!! Form::input('number','paid_sick_leave','',['min'=>0,'class'=>'form-control','placeholder'=>'Enter Paid Sick Leave'])!!}
+								<div class="help-box">Leave blank to Hide.</div>
+							</div>
+
+						  </div>
 
 						  <div class="col-sm-offset-2 col-sm-10">
 

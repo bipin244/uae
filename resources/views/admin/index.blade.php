@@ -418,15 +418,17 @@
                         </h4>
                     </div>
                     
-                    <div class="  " id="">
+                    <div>
                         <div class="panel-body panel-info" id="mythickness" >
-                        <center><h3 style="margin-top:0px;"><i class="fa {!! $sickLeave['icon']!!}" aria-hidden="true"></i> {!! $sickLeave['total']!!} {!! $sickLeave['extention']!!}</h3> Attendance</center><br/>
-                        <hr style="padding:0px;margin:0px;">
-                    <center><h4>{!! $sickLeave['lastYear']!!} sickness in the last 12 months.</h4>  </center>
-                    <hr style="padding:0px;margin:5px;">
-                    <center><a class="btn" href="{!! URL::to('leave') !!}"> View My Sick Leave >></a></center><br/>
-                            <center><a href="{!! URL::to('reportSick') !!}" class="btn btn-danger">Report a New Sickness >></a></center>
-                            
+                            <center><h3 style="margin-top:0px;"><i class="fa {!! $sickLeave['icon']!!}" aria-hidden="true"></i> {!! $sickLeave['total']!!} {!! $sickLeave['extention']!!}</h3> Attendance</center><br/>
+                            <hr style="padding:0px;margin:0px;">
+                            <center><h4>{!! $sickLeave['lastYear']!!} sickness in the last 12 months.</h4>  </center>
+                            <hr style="padding:0px;margin:5px;">
+                            @if($sickLeave['paidSick'] != 0)
+                                <center><p>{!! $sickLeave['paidSick'] !!} Days Paid Sick Leave</p></center>
+                            @endif
+                            <center><a class="btn" href="{!! URL::to('leave') !!}"> View My Sick Leave >></a></center><br/>
+                            <center><button class="btn btn-danger makeNewSickLeave">Report a New Sickness >></button></center>
                         </div>
                     </div>
                 </div>
@@ -712,9 +714,20 @@
         $(document).on('click','.makeNewLeave',function(e){
             var availableLeave = {!! $leaveObj['total'] !!};
             if(availableLeave > 0){
-                window.location.href = "{!! URL::to('leave/create') !!}"
+                window.location.href = "{!! URL::to('leave/create') !!}";
             }else{
                 alert("No more leave available");
+            }
+        });
+        $(document).on('click','.makeNewSickLeave',function(e){
+            var availableLeave = {!! $sickLeave['paidSick'] !!} - {!! $sickLeave['total']!!};
+            if(availableLeave > 0){
+                window.location.href = "{!! URL::to('reportSick') !!}";
+            }else{
+                var r = confirm("No more paid sick leave available.\nRequest non paid sick leave");
+                if (r == true) {
+                    window.location.href = "{!! URL::to('reportSick') !!}";
+                }
             }
         });
         var s1 =  {!! ($graph_data) !!};//[["Jan", 5],["Feb", 8],["Mar", 6],["Apr", 9],["May", 6],["Jun", 8],["Jul", 6],["Aug", 5],["Sep", 8],["Oct", 6],["Nov", 9],["Dec", 6]];

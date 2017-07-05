@@ -244,14 +244,17 @@ class DashboardController extends Controller
         $leaveObj['booked'] = 0;
         $leaveObj['requested'] = 0;
         $allLeave = Leave::where('user_id',Auth::user()->id)
-            ->select('leave_status', DB::raw('count(*) as total'))
-            ->groupBy('leave_status')
+            ->select('leave_status', 'to_date','from_date')
             ->get();
         foreach($allLeave as $key=>$value){
+            $to_date = strtotime($value['to_date']); 
+            $from_date = strtotime($value['from_date']);
+            $datediff = $to_date - $from_date;
+            $totalSickLeave = floor($datediff / (60 * 60 * 24)) + 1;
             if($value['leave_status'] == "approved"){
-                $leaveObj['booked'] = $value['total'];
+                $leaveObj['booked'] += $totalSickLeave;
             }else if($value['leave_status'] == "pending"){
-                $leaveObj['requested'] = $value['total'];
+                $leaveObj['requested'] +=  $totalSickLeave;
             }
         }
         $leaveObj['total'] = Auth::user()->total_leave - $leaveObj['booked'] - $leaveObj['requested'];
@@ -261,36 +264,44 @@ class DashboardController extends Controller
         $sickLeave['lastYear'] = 0;
         $sickLeave['extention'] = "Perfect";
         $sickLeave['icon'] = "fa-thumbs-up";
+        $sickLeave['paidSick'] = Auth::user()->paid_sick_leave;
         $allLeave = Leave::where('user_id',Auth::user()->id)
             ->where('leave_type_id','2')
-            ->select('leave_status', DB::raw('count(*) as total'))
-            ->groupBy('leave_status')
+            ->select('leave_status', 'to_date','from_date')
             ->get();
         foreach($allLeave as $key=>$value){
             if($value['leave_status'] == "approved"){
-                $sickLeave['total'] = $value['total'];
-                if($value['total'] >= 1 && $value['total'] < 5){
+                $to_date = strtotime($value['to_date']); 
+                $from_date = strtotime($value['from_date']);
+                $datediff = $to_date - $from_date;
+                $totalSickLeave = floor($datediff / (60 * 60 * 24)) + 1;
+                $sickLeave['total'] = $sickLeave['total'] + $totalSickLeave;
+                if($totalSickLeave >= 1 && $totalSickLeave < 5){
                     $sickLeave['extention'] = "Good";
                     $sickLeave['icon'] = "fa-thumbs-up";
-                }else if($value['total'] >= 5 && $value['total'] < 10){
+                }else if($totalSickLeave >= 5 && $totalSickLeave < 10){
                     $sickLeave['extention'] = "Average";
                     $sickLeave['icon'] = "fa-hand-o-right";
-                }else if($value['total'] >= 10){
+                }else if($totalSickLeave >= 10){
                     $sickLeave['extention'] = "High Rate of sick leave";
                     $sickLeave['icon'] = "fa-thumbs-down";
                 }
             }
-            // else if($value['leave_status'] == "pending"){
-            //     $leaveObj['requested'] = $value['total'];
-            // }
         }
         $forLastYear = Leave::where('user_id',Auth::user()->id)
             ->where('leave_type_id','2')
             ->where('leave_status','approved')
             ->whereRaw('from_date > DATE_SUB(now(), INTERVAL 12 MONTH)')
-            ->select(DB::raw('count(*) as total'))
+            ->select('to_date','from_date')
             ->get();
-        $sickLeave['lastYear'] = $forLastYear[0]['total'];
+        $totalSickLeaveLy = 0;
+        foreach($forLastYear as $key=>$value){
+            $to_date = strtotime($value['to_date']); 
+            $from_date = strtotime($value['from_date']);
+            $datediff = $to_date - $from_date;
+            $totalSickLeaveLy = $totalSickLeaveLy + floor($datediff / (60 * 60 * 24)) + 1;
+        }
+        $sickLeave['lastYear'] = $totalSickLeaveLy;
         if($sickLeave['lastYear'] == 0){
             $sickLeave['lastYear'] = "No";
         }

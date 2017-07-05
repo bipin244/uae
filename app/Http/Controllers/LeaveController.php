@@ -258,11 +258,12 @@ Class LeaveController extends Controller{
 		return redirect()->back()->withSuccess('Leave status updated successfully. ');
 	}
 
-	public function destroy(Leave $leave){
-		if(!Entrust::can('delete_leave'))
+	public function destroy($id,Leave $leave){
+		 if(!Entrust::can('delete_leave'))
 			return redirect('/dashboard')->withErrors(config('constants.NA'));
 
-		Helper::deleteCustomField($this->form, $leave->id);
+		Helper::deleteCustomField($this->form, $id);
+		$leave = Leave::find($id);
         $leave->delete();
 		$activity = 'Deleted a Leave';
 		Activity::log($activity);
