@@ -89,7 +89,37 @@
 
 {{-- Page content --}}
 @section('content')
-
+    <!-- Modal -->
+    <div class="modal fade" id="noLeaveAvailable" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top:30%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 295px;left: 23%;">
+                <div class="modal-body">
+                    <center>
+                        No More Holidays Left &#x1f61e;
+                    </center>
+                </div>
+                <div class="modal-footer" style="padding:5px;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="noSickLeaveAvailable" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top:30%;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 295px;left: 23%;">
+                <div class="modal-body">
+                    <center>
+                        No more paid sick leave available.
+                        <br>Please Request non paid sick leave.
+                    </center>
+                </div>
+                <div class="modal-footer" style="padding:5px;">
+                    <button type="button" class="btn btn-primary gotosickleave">OK</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="content-header">
         <h1>Welcome to Dashboard</h1>
         <ol class="breadcrumb">
@@ -630,6 +660,7 @@
             </div>
         </div>
     </div>
+    
    
 
     
@@ -716,18 +747,18 @@
             if(availableLeave > 0){
                 window.location.href = "{!! URL::to('leave/create') !!}";
             }else{
-                alert("No more leave available");
+                $("#noLeaveAvailable").modal('show');
             }
+        });
+        $(document).on('click','.gotosickleave',function(e){
+            window.location.href = "{!! URL::to('reportSick') !!}";
         });
         $(document).on('click','.makeNewSickLeave',function(e){
             var availableLeave = {!! $sickLeave['paidSick'] !!} - {!! $sickLeave['total']!!};
             if(availableLeave > 0){
                 window.location.href = "{!! URL::to('reportSick') !!}";
             }else{
-                var r = confirm("No more paid sick leave available.\nRequest non paid sick leave");
-                if (r == true) {
-                    window.location.href = "{!! URL::to('reportSick') !!}";
-                }
+                $("#noSickLeaveAvailable").modal('show');
             }
         });
         var s1 =  {!! ($graph_data) !!};//[["Jan", 5],["Feb", 8],["Mar", 6],["Apr", 9],["May", 6],["Jun", 8],["Jul", 6],["Aug", 5],["Sep", 8],["Oct", 6],["Nov", 9],["Dec", 6]];

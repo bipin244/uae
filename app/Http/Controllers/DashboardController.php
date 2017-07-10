@@ -276,17 +276,17 @@ class DashboardController extends Controller
                 $datediff = $to_date - $from_date;
                 $totalSickLeave = floor($datediff / (60 * 60 * 24)) + 1;
                 $sickLeave['total'] = $sickLeave['total'] + $totalSickLeave;
-                if($totalSickLeave >= 1 && $totalSickLeave < 5){
-                    $sickLeave['extention'] = "Good";
-                    $sickLeave['icon'] = "fa-thumbs-up";
-                }else if($totalSickLeave >= 5 && $totalSickLeave < 10){
-                    $sickLeave['extention'] = "Average";
-                    $sickLeave['icon'] = "fa-hand-o-right";
-                }else if($totalSickLeave >= 10){
-                    $sickLeave['extention'] = "High Rate of sick leave";
-                    $sickLeave['icon'] = "fa-thumbs-down";
-                }
             }
+        }
+        if($sickLeave['total'] >= 1 && $sickLeave['total'] < 5){
+            $sickLeave['extention'] = "Good";
+            $sickLeave['icon'] = "fa-thumbs-up";
+        }else if($sickLeave['total'] >= 5 && $sickLeave['total'] < 10){
+            $sickLeave['extention'] = "Average";
+            $sickLeave['icon'] = "fa-hand-o-right";
+        }else if($sickLeave['total'] >= 10){
+            $sickLeave['extention'] = "Bad";
+            $sickLeave['icon'] = "fa-thumbs-down";
         }
         $forLastYear = Leave::where('user_id',Auth::user()->id)
             ->where('leave_type_id','2')
